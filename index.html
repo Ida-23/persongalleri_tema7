@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="da">
 
 <head>
     <meta charset="utf-8">
@@ -8,22 +8,72 @@
     <link rel="stylesheet" href="">
 </head>
 
+<style>
+    img {
+        max-width: 100%;
+        border-radius: 20px;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+
+    h2,
+    h1 {
+        text-align: center;
+    }
+
+    h1 {
+        text-transform: uppercase;
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+
+    }
+
+    section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 20px;
+    }
+
+
+
+    article {
+        border: solid 1px #29435d;
+        padding: 15px 10px;
+        background-color: rgba(0, 99, 152, 0.10);
+    }
+</style>
+
+
+
 <body>
 
-    <main></main>
+    <main>
+        <h1>Persongalleri</h1>
+        <section></section>
+    </main>
+
 
     <template>
         <article>
+            <h2 class="navn">Navn</h2>
             <img src="" alt="" class="billede">
-            <h2 class="navn"></h2>
-            <p class="titel"></p>
-            <p class="fødselsdag"></p>
+            <p class="titel">Titel:</p>
+            <p class="fødselsdag">Fødselsdag: </p>
+            <p class="hobby">Hobby: </p>
+
         </article>
     </template>
 
 
 
     <script>
+        document.addEventListener("DOMContentLoaded", hentData);
+
         const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
 
         const medieurl = "https://persongalleri-5d3e.restdb.io/media/";
@@ -42,7 +92,7 @@
 
 
 
-        const main = document.querySelector("main");
+        const main = document.querySelector("section");
         const template = document.querySelector("template").content;
 
 
@@ -53,18 +103,15 @@
             json.forEach(person => {
                 const klon = template.cloneNode(true);
                 klon.querySelector(".billede").src = medieurl + person.billede;
-                klon.querySelector(".navn").textContent = person.navn;
-                klon.querySelector(".titel").textContent = person.titel;
-                klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
+                klon.querySelector(".navn").textContent = `${person.fornavn} ${person.efternavn}`;
+                klon.querySelector(".titel").textContent += person.titel;
+                klon.querySelector(".fødselsdag").textContent += person.fødselsdag;
+                klon.querySelector(".hobby").textContent += person.hobby;
                 main.appendChild(klon);
-
 
             })
         }
 
-        hentData();
-
+        //        hentData();
     </script>
-</body>
-
-</html>
+</body></html>
